@@ -68,9 +68,10 @@ resource "aws_security_group" "codebuild_security_group" {
   vpc_id      = var.main_vpc_id
 
   egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
+    description = "ALL OPEN"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     #tfsec:ignore:AWS009
     cidr_blocks = ["0.0.0.0/0"]
   }

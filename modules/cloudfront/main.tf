@@ -40,6 +40,9 @@ resource "aws_lambda_function" "object_redirect" {
     aws_cloudwatch_log_group.object_redirect_ue1,
     aws_cloudwatch_log_group.object_redirect_ue1_local
   ]
+  tracing_config {
+    mode = "Active"
+  }
 }
 
 data "aws_iam_policy_document" "lambda-edge-service-role" {
