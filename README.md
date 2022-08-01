@@ -257,10 +257,16 @@ For any issues relating to this module, [raise an issue against this repo.](http
 
 | Name | Description |
 |------|-------------|
+| <a name="output_cloudfront_bucket_arn"></a> [cloudfront\_bucket\_arn](#output\_cloudfront\_bucket\_arn) | n/a |
+| <a name="output_cloudfront_domain_name"></a> [cloudfront\_domain\_name](#output\_cloudfront\_domain\_name) | n/a |
+| <a name="output_cloudfront_hostedzone_id"></a> [cloudfront\_hostedzone\_id](#output\_cloudfront\_hostedzone\_id) | n/a |
 | <a name="output_cloudfront_ssl_arn"></a> [cloudfront\_ssl\_arn](#output\_cloudfront\_ssl\_arn) | The ARN of the ACM certificate used by CloudFront. |
 | <a name="output_codebuild_package_etag"></a> [codebuild\_package\_etag](#output\_codebuild\_package\_etag) | The etag of the codebuild package file. |
 | <a name="output_codebuild_project_name"></a> [codebuild\_project\_name](#output\_codebuild\_project\_name) | The name of the created Wordpress codebuild project. |
+| <a name="output_ses_domain_dkim"></a> [ses\_domain\_dkim](#output\_ses\_domain\_dkim) | n/a |
+| <a name="output_wordpress_dkim_record"></a> [wordpress\_dkim\_record](#output\_wordpress\_dkim\_record) | n/a |
 | <a name="output_wordpress_ecr_repository"></a> [wordpress\_ecr\_repository](#output\_wordpress\_ecr\_repository) | The name of the ECR repository where wordpress image is stored. |
+| <a name="output_wordpress_waf_arn"></a> [wordpress\_waf\_arn](#output\_wordpress\_waf\_arn) | n/a |
 ## Requirements
 
 | Name | Version |
@@ -292,6 +298,7 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | [aws_rds_cluster.serverless_wordpress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/rds_cluster) | resource |
 | [aws_route53_record.apex](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.wordpress_acm_validation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_record.wordpress_dkim_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.www](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_security_group.aurora_serverless_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.efs_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
@@ -303,6 +310,8 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | [aws_security_group_rule.wordpress_sg_egress_443](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.wordpress_sg_egress_80](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.wordpress_sg_ingress_80](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_ses_domain_dkim.ses_domain_dkim](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_domain_dkim) | resource |
+| [aws_ses_domain_identity.ses_domain_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_domain_identity) | resource |
 | [random_id.rds_snapshot](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [random_password.serverless_wordpress_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [aws_iam_policy_document.ecs_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |

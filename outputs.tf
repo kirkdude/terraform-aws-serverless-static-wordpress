@@ -17,3 +17,27 @@ output "codebuild_package_etag" {
   value       = module.codebuild.codebuild_package_etag
   description = "The etag of the codebuild package file."
 }
+
+output "wordpress_waf_arn" {
+  value = module.waf.waf_acl_arn
+}
+
+output "cloudfront_bucket_arn" {
+  value = module.cloudfront.wordpress_bucket_arn
+}
+
+output "cloudfront_domain_name" {
+  value = module.cloudfront.wordpress_cloudfront_distribution_domain_name
+}
+
+output "cloudfront_hostedzone_id" {
+  value = module.cloudfront.wordpress_cloudfront_distrubtion_hostedzone_id
+}
+
+output "ses_domain_dkim" {
+  value = aws_ses_domain_dkim.ses_domain_dkim.*
+}
+
+output "wordpress_dkim_record" {
+  value = aws_route53_record.wordpress_dkim_record.*
+}
