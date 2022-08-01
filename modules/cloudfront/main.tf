@@ -4,20 +4,20 @@ data "archive_file" "index_html" {
   output_path = "${path.module}/lambda_redirect/dst/index_html.zip"
 }
 
-#tfsec:ignore:AWS089
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "object_redirect" {
   name              = "/aws/lambda/${var.site_name}_redirect_index_html"
   retention_in_days = 7
 }
 
-#tfsec:ignore:AWS089
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "object_redirect_ue1_local" {
   name              = "/aws/lambda/us-east-1.${var.site_name}_redirect_index_html"
   retention_in_days = 7
 }
 
 # TODO: A solution to create/manage default log groups in all Edge Cache Regions
-#tfsec:ignore:AWS089
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "object_redirect_ue1" {
   name              = "/aws/lambda/us-east-1.${var.site_name}_redirect_index_html"
   retention_in_days = 7

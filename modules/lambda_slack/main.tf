@@ -17,7 +17,7 @@ data "archive_file" "lambda_slack" {
 #   }
 # }
 
-#tfsec:ignore:AWS089
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "lambda_slack" {
   name              = "/aws/lambda/${var.site_name}_lambda_slack"
   retention_in_days = 7

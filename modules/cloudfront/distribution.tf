@@ -1,6 +1,6 @@
 # TODO: Add optional logging for S3 bucket
 # TODO: Add optional versioning for S3 bucket
-#tfsec:ignore:AWS002 #tfsec:ignore:AWS077
+#tfsec:ignore:aws-s3-enable-bucket-logging #tfsec:ignore:aws-s3-enable-versioning
 resource "aws_s3_bucket" "wordpress_bucket" {
   bucket        = "${var.site_prefix}.${var.site_domain}"
   force_destroy = true
@@ -27,7 +27,7 @@ resource "aws_cloudfront_origin_access_identity" "wordpress_distribution" {
 
 # TODO: Add optional Access Logging configuration for Cloudfront
 # TODO: Add optional WAF configuration in front of Cloudfront
-#tfsec:ignore:AWS045 #tfsec:ignore:AWS071
+#tfsec:ignore:aws-cloudfront-enable-waf #tfsec:ignore:aws-cloudfront-enable-logging
 resource "aws_cloudfront_distribution" "wordpress_distribution" {
   origin {
     domain_name = aws_s3_bucket.wordpress_bucket.bucket_regional_domain_name

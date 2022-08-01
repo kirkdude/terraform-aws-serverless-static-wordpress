@@ -26,8 +26,7 @@ module "cloudfront" {
   providers = {
     aws.ue1 = aws.ue1
   }
-  depends_on = [aws_acm_certificate_validation.wordpress_site,
-  module.waf]
+  #depends_on = [aws_acm_certificate_validation.wordpress_site, module.waf]
   cloudfront_class = var.cloudfront_class
   waf_acl_arn      = var.waf_enabled ? module.waf[0].waf_acl_arn : null
 }

@@ -95,7 +95,7 @@ resource "aws_efs_mount_target" "wordpress_efs" {
   security_groups = [aws_security_group.efs_security_group.id]
 }
 
-#tfsec:ignore:AWS089
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "wordpress_container" {
   name              = "/aws/ecs/${var.site_name}-serverless-wordpress-container"
   retention_in_days = 7
@@ -162,7 +162,7 @@ resource "aws_security_group_rule" "wordpress_sg_ingress_80" {
   from_port         = 80
   to_port           = 80
   protocol          = "TCP"
-  #tfsec:ignore:AWS006
+  #tfsec:ignore:aws-vpc-no-public-ingress-sgr
   cidr_blocks = ["0.0.0.0/0"]
   description = "Allow ingress from world to Wordpress container"
 }
@@ -183,7 +183,7 @@ resource "aws_security_group_rule" "wordpress_sg_egress_80" {
   from_port         = 80
   to_port           = 80
   protocol          = "TCP"
-  #tfsec:ignore:AWS007
+  #tfsec:ignore:aws-vpc-no-public-egress-sgr
   cidr_blocks = ["0.0.0.0/0"]
   description = "Egress from Wordpress container to world on HTTP"
 }
@@ -194,7 +194,7 @@ resource "aws_security_group_rule" "wordpress_sg_egress_443" {
   from_port         = 443
   to_port           = 443
   protocol          = "TCP"
-  #tfsec:ignore:AWS007
+  #tfsec:ignore:aws-vpc-no-public-egress-sgr
   cidr_blocks = ["0.0.0.0/0"]
   description = "Egress from Wordpress container to world on HTTPS"
 }
@@ -234,7 +234,7 @@ resource "aws_ecs_service" "wordpress_service" {
 }
 
 # TODO: Add option to enable container insights
-#tfsec:ignore:AWS090
+#tfsec:ignore:aws-ecs-enable-container-insight
 resource "aws_ecs_cluster" "wordpress_cluster" {
   name               = "${var.site_name}_wordpress"
   capacity_providers = ["FARGATE_SPOT"]

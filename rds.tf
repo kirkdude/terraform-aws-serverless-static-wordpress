@@ -33,12 +33,13 @@ resource "random_id" "rds_snapshot" {
   byte_length = 8
 }
 
-#tfsec:ignore:AWS089
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "serverless_wordpress" {
   name              = "/aws/rds/cluster/${var.site_name}-serverless-wordpress/error"
   retention_in_days = 7
 }
 
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_rds_cluster" "serverless_wordpress" {
   vpc_security_group_ids              = [aws_security_group.aurora_serverless_group.id]
   db_subnet_group_name                = aws_db_subnet_group.main_vpc.name
