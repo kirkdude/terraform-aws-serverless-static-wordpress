@@ -18,10 +18,6 @@ output "codebuild_package_etag" {
   description = "The etag of the codebuild package file."
 }
 
-output "wordpress_waf_arn" {
-  value = module.waf.waf_acl_arn
-}
-
 output "cloudfront_bucket_arn" {
   value = module.cloudfront.wordpress_bucket_arn
 }

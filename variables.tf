@@ -116,14 +116,13 @@ variable "wordpress_subdomain" {
 variable "wordpress_admin_user" {
   type        = string
   description = "The username of the default wordpress admin user."
-  default     = "supervisor"
+  default     = "admin"
 }
 
 variable "wordpress_admin_password" {
   type        = string
   description = "The password of the default wordpress admin user."
-  #tfsec:ignore:general-secrets-no-plaintext-exposure
-  sensitive = true
+  sensitive   = true
 }
 
 variable "wordpress_admin_email" {

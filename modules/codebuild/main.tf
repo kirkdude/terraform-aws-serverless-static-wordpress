@@ -143,7 +143,7 @@ resource "local_file" "php_ini" {
   content  = <<-EOT
       upload_max_filesize=64M
       post_max_size=64M
-      max_execution_time=0
+      max_execution_time=3000
       max_input_vars=2000
       memory_limit=${var.container_memory}M
     EOT

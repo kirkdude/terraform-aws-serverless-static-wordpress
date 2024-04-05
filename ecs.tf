@@ -68,7 +68,7 @@ resource "aws_iam_role_policy_attachment" "wordpress_role_attachment_cloudwatch"
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
 
-resource "aws_efs_access_point" "wordpress_efs" {
+resource "aws_efs_access_point" "wordpress-efs" {
   file_system_id = aws_efs_file_system.wordpress_persistent.id
 }
 
@@ -136,7 +136,8 @@ resource "aws_ecs_task_definition" "wordpress_container" {
       file_system_id     = aws_efs_file_system.wordpress_persistent.id
       transit_encryption = "ENABLED"
       authorization_config {
-        access_point_id = aws_efs_access_point.wordpress_efs.id
+        access_point_id = aws_efs_access_point.wordpress-efs.id
+        iam             = "ENABLED"
       }
     }
 
@@ -228,7 +229,7 @@ resource "aws_ecs_service" "wordpress_service" {
 
   network_configuration {
     subnets          = var.subnet_ids
-    security_groups  = [aws_security_group.wordpress_security_group.id]
+    security_groups  = [aws_security_group.wordpress_security_group.id, aws_security_group.efs_security_group.id]
     assign_public_ip = true
   }
 }
