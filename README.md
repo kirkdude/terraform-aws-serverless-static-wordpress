@@ -25,17 +25,17 @@ pre-configured in line with industry best practices and highly efficient running
 - A domain name either hosted with AWS, or with its DNS delegated to a Route53 hosted zone.
 - A VPC configured with at least one public subnet in your desired deployment region.
 - Desired deployment region **cannot** be one of the following, as Aurora Serverless v1 is not yet supported there:
-    - Africa (Cape Town)
-    - Asia Pacific (Hong Kong)
-    - Asia Pacific (Osaka)
-    - Europe (Milan)
-    - Europe (Stockholm)
-    - Middle East (Bahrain)
-    - South America (São Paulo)
-    - AWS GovCloud (US-East)
-    - AWS GovCloud (US-West)
-    - China (Beijing)
-    - China (Ningxia)
+  - Africa (Cape Town)
+  - Asia Pacific (Hong Kong)
+  - Asia Pacific (Osaka)
+  - Europe (Milan)
+  - Europe (Stockholm)
+  - Middle East (Bahrain)
+  - South America (São Paulo)
+  - AWS GovCloud (US-East)
+  - AWS GovCloud (US-West)
+  - China (Beijing)
+  - China (Ningxia)
 
 Alternatives for Aurora Serverless will be supported in a future release.
 
@@ -120,6 +120,7 @@ module instantiation using our [helper module](https://github.com/TechToSpeech/t
 
 Note this requires Docker to be running on your Terraform environment with either a named AWS profile or credentials
 otherwise available.
+
 ```
 module "docker_pullpush" {
   source         = "TechToSpeech/ecr-mirror/aws"
@@ -173,6 +174,7 @@ resource "null_resource" "update_nameservers" {
   depends_on = [aws_route53_zone.apex]
 }
 ```
+
 See [examples](docs/examples) for full set-up example.
 
 ## Launching container, customize Wordpress and publish static site
@@ -185,7 +187,7 @@ Wordpress management container.
 First-time launch of container will take 5-6 minutes as the installation of Wordpress completes. You can
 check status if you wish in CloudWatch log groups for ECS. It will come up within a few seconds on subsequent launches.
 
-The Wordpress management container will become available at http://wordpress.yourdomain.com (note HTTP, not HTTPS) by
+The Wordpress management container will become available at <http://wordpress.yourdomain.com> (note HTTP, not HTTPS) by
 default, unless you specified your own `wordpress_subdomain` prefix.
 
 Default admin is: supervisor
@@ -245,6 +247,7 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | <a name="input_wordpress_admin_password"></a> [wordpress\_admin\_password](#input\_wordpress\_admin\_password) | The password of the default wordpress admin user. | `string` | n/a | yes |
 | <a name="input_wordpress_admin_user"></a> [wordpress\_admin\_user](#input\_wordpress\_admin\_user) | The username of the default wordpress admin user. | `string` | `"supervisor"` | no |
 | <a name="input_wordpress_subdomain"></a> [wordpress\_subdomain](#input\_wordpress\_subdomain) | The subdomain used for the Wordpress container. | `string` | `"wordpress"` | no |
+
 ## Modules
 
 | Name | Source | Version |
@@ -253,6 +256,7 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | <a name="module_codebuild"></a> [codebuild](#module\_codebuild) | ./modules/codebuild | n/a |
 | <a name="module_lambda_slack"></a> [lambda\_slack](#module\_lambda\_slack) | ./modules/lambda_slack | n/a |
 | <a name="module_waf"></a> [waf](#module\_waf) | ./modules/waf | n/a |
+
 ## Outputs
 
 | Name | Description |
@@ -267,6 +271,7 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | <a name="output_wordpress_dkim_record"></a> [wordpress\_dkim\_record](#output\_wordpress\_dkim\_record) | n/a |
 | <a name="output_wordpress_ecr_repository"></a> [wordpress\_ecr\_repository](#output\_wordpress\_ecr\_repository) | The name of the ECR repository where wordpress image is stored. |
 | <a name="output_wordpress_waf_arn"></a> [wordpress\_waf\_arn](#output\_wordpress\_waf\_arn) | n/a |
+
 ## Requirements
 
 | Name | Version |
@@ -274,6 +279,7 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.15.1 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.1.0 |
+
 ## Resources
 
 | Name | Type |

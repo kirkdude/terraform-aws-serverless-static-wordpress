@@ -98,7 +98,7 @@ resource "aws_efs_mount_target" "wordpress_efs" {
 #tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "wordpress_container" {
   name              = "/aws/ecs/${var.site_name}-serverless-wordpress-container"
-  retention_in_days = 7
+  retention_in_days = 365
 }
 
 resource "aws_ecs_task_definition" "wordpress_container" {
@@ -213,10 +213,11 @@ resource "aws_security_group_rule" "wordpress_sg_egress_3306" {
 
 
 resource "aws_ecs_service" "wordpress_service" {
-  name            = "${var.site_name}_wordpress"
-  task_definition = "${aws_ecs_task_definition.wordpress_container.family}:${aws_ecs_task_definition.wordpress_container.revision}"
-  cluster         = aws_ecs_cluster.wordpress_cluster.arn
-  desired_count   = var.launch
+  name                   = "${var.site_name}_wordpress"
+  task_definition        = "${aws_ecs_task_definition.wordpress_container.family}:${aws_ecs_task_definition.wordpress_container.revision}"
+  cluster                = aws_ecs_cluster.wordpress_cluster.arn
+  desired_count          = var.launch
+  enable_execute_command = true
   # iam_role =
   capacity_provider_strategy {
     capacity_provider = "FARGATE_SPOT"

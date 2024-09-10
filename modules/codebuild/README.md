@@ -14,18 +14,22 @@ This module sets up the build to take a vanilla Wordpress image and bake customi
 | <a name="input_site_domain"></a> [site\_domain](#input\_site\_domain) | The site domain name to configure (without any subdomains such as 'www') | `string` | n/a | yes |
 | <a name="input_site_name"></a> [site\_name](#input\_site\_name) | The unique name for this instance of the module. Required to deploy multiple wordpress instances to the same AWS account (if desired). | `string` | n/a | yes |
 | <a name="input_wordpress_ecr_repository"></a> [wordpress\_ecr\_repository](#input\_wordpress\_ecr\_repository) | The ECR repository where the Wordpress image is stored. | `string` | n/a | yes |
+
 ## Modules
 
 No modules.
+
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | <a name="output_codebuild_package_etag"></a> [codebuild\_package\_etag](#output\_codebuild\_package\_etag) | The etag of the codebuild package file. |
 | <a name="output_codebuild_project_name"></a> [codebuild\_project\_name](#output\_codebuild\_project\_name) | The name of the created Wordpress codebuild project. |
+
 ## Requirements
 
 No requirements.
+
 ## Resources
 
 | Name | Type |

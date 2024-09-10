@@ -14,9 +14,11 @@ This module sets up the CloudFront distribution that fronts the static wordpress
 | <a name="input_site_name"></a> [site\_name](#input\_site\_name) | The unique name for this instance of the module. Required to deploy multiple wordpress instances to the same AWS account (if desired). | `string` | n/a | yes |
 | <a name="input_site_prefix"></a> [site\_prefix](#input\_site\_prefix) | The subdomain prefix of the website domain. E.g. www | `string` | `"www"` | no |
 | <a name="input_waf_acl_arn"></a> [waf\_acl\_arn](#input\_waf\_acl\_arn) | The ARN of the WAF ACL applied to the CloudFront distribution. | `string` | `null` | no |
+
 ## Modules
 
 No modules.
+
 ## Outputs
 
 | Name | Description |
@@ -25,9 +27,11 @@ No modules.
 | <a name="output_wordpress_bucket_id"></a> [wordpress\_bucket\_id](#output\_wordpress\_bucket\_id) | n/a |
 | <a name="output_wordpress_cloudfront_distribution_domain_name"></a> [wordpress\_cloudfront\_distribution\_domain\_name](#output\_wordpress\_cloudfront\_distribution\_domain\_name) | n/a |
 | <a name="output_wordpress_cloudfront_distrubtion_hostedzone_id"></a> [wordpress\_cloudfront\_distrubtion\_hostedzone\_id](#output\_wordpress\_cloudfront\_distrubtion\_hostedzone\_id) | n/a |
+
 ## Requirements
 
 No requirements.
+
 ## Resources
 
 | Name | Type |
