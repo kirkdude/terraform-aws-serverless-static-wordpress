@@ -1,3 +1,6 @@
+# Infracost
+.infracost
+
 # Build artifacts
 modules/cloudfront/lambda_redirect/dst/*
 modules/codebuild/codebuild_files/wordpress_docker.zip

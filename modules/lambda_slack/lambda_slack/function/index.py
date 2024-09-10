@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import print_function
 
 import boto3
@@ -17,8 +18,9 @@ from urllib.error import URLError, HTTPError
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-HOOK_URL = region = os.environ['HOOK_URL']
+HOOK_URL = region = os.environ["HOOK_URL"]
 SLACK_CHANNEL = "wordpress-alerts"
+
 
 def handler(event, context):
     logger.info("Event: " + str(event))
@@ -38,30 +40,39 @@ def handler(event, context):
         desired_status = event_type = event["detail"]["desiredStatus"]
         launch_type = event_type = event["detail"]["launchType"]
         last_status = event_type = event["detail"]["lastStatus"]
-        message_text = "ECS Task Status Change: " + launch_type + ":" + event_id + ": Desired was " + desired_status + " and last was " + last_status
+        message_text = (
+            "ECS Task Status Change: "
+            + launch_type
+            + ":"
+            + event_id
+            + ": Desired was "
+            + desired_status
+            + " and last was "
+            + last_status
+        )
     elif event["detail-type"] == "ECS Container Instance State Change":
         event_id = event["detail"]["containerInstanceArn"]
         event_status = event_id = event["detail"]["status"]
-        message_text = "Container Instance State Change: " + event_id + ":" + event_status
+        message_text = (
+            "Container Instance State Change: " + event_id + ":" + event_status
+        )
     elif event["detail-type"] == "RDS DB Cluster Event":
         event_id = event["detail"]["SourceIdentifier"]
         event_message = event_id = event["detail"]["Message"]
         message_text = "RDS Cluster State Change: " + event_id + ":" + event_message
 
     else:
-        raise ValueError("detail-type for event is not a supported type. Exiting without notifying event.")
+        raise ValueError(
+            "detail-type for event is not a supported type. Exiting without notifying event."
+        )
 
+    slack_message = {"channel": SLACK_CHANNEL, "text": message_text}
 
-    slack_message = {
-        'channel': SLACK_CHANNEL,
-        'text': message_text
-    }
-
-    req = Request(HOOK_URL, json.dumps(slack_message).encode('utf-8'))
+    req = Request(HOOK_URL, json.dumps(slack_message).encode("utf-8"))
     try:
         response = urlopen(req)
         response.read()
-        logger.info("Message posted to %s", slack_message['channel'])
+        logger.info("Message posted to %s", slack_message["channel"])
     except HTTPError as e:
         logger.error("Request failed: %d %s", e.code, e.reason)
     except URLError as e:

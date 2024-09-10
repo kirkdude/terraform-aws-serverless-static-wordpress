@@ -25,17 +25,17 @@ pre-configured in line with industry best practices and highly efficient running
 - A domain name either hosted with AWS, or with its DNS delegated to a Route53 hosted zone.
 - A VPC configured with at least one public subnet in your desired deployment region.
 - Desired deployment region **cannot** be one of the following, as Aurora Serverless v1 is not yet supported there:
-    - Africa (Cape Town)
-    - Asia Pacific (Hong Kong)
-    - Asia Pacific (Osaka)
-    - Europe (Milan)
-    - Europe (Stockholm)
-    - Middle East (Bahrain)
-    - South America (São Paulo)
-    - AWS GovCloud (US-East)
-    - AWS GovCloud (US-West)
-    - China (Beijing)
-    - China (Ningxia)
+  - Africa (Cape Town)
+  - Asia Pacific (Hong Kong)
+  - Asia Pacific (Osaka)
+  - Europe (Milan)
+  - Europe (Stockholm)
+  - Middle East (Bahrain)
+  - South America (São Paulo)
+  - AWS GovCloud (US-East)
+  - AWS GovCloud (US-West)
+  - China (Beijing)
+  - China (Ningxia)
 
 Alternatives for Aurora Serverless will be supported in a future release.
 
@@ -120,6 +120,7 @@ module instantiation using our [helper module](https://github.com/TechToSpeech/t
 
 Note this requires Docker to be running on your Terraform environment with either a named AWS profile or credentials
 otherwise available.
+
 ```
 module "docker_pullpush" {
   source         = "TechToSpeech/ecr-mirror/aws"
@@ -173,6 +174,7 @@ resource "null_resource" "update_nameservers" {
   depends_on = [aws_route53_zone.apex]
 }
 ```
+
 See [examples](docs/examples) for full set-up example.
 
 ## Launching container, customize Wordpress and publish static site
@@ -185,7 +187,7 @@ Wordpress management container.
 First-time launch of container will take 5-6 minutes as the installation of Wordpress completes. You can
 check status if you wish in CloudWatch log groups for ECS. It will come up within a few seconds on subsequent launches.
 
-The Wordpress management container will become available at http://wordpress.yourdomain.com (note HTTP, not HTTPS) by
+The Wordpress management container will become available at <http://wordpress.yourdomain.com> (note HTTP, not HTTPS) by
 default, unless you specified your own `wordpress_subdomain` prefix.
 
 Default admin is: supervisor
@@ -227,8 +229,8 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | <a name="input_aws_account_id"></a> [aws\_account\_id](#input\_aws\_account\_id) | The AWS account ID into which resources will be launched. | `string` | n/a | yes |
 | <a name="input_cloudfront_aliases"></a> [cloudfront\_aliases](#input\_cloudfront\_aliases) | The domain and sub-domain aliases to use for the cloudfront distribution. | `list(any)` | `[]` | no |
 | <a name="input_cloudfront_class"></a> [cloudfront\_class](#input\_cloudfront\_class) | The [price class](https://aws.amazon.com/cloudfront/pricing/) for the distribution. One of: PriceClass\_All, PriceClass\_200, PriceClass\_100 | `string` | `"PriceClass_All"` | no |
-| <a name="input_ecs_cpu"></a> [ecs\_cpu](#input\_ecs\_cpu) | The CPU limit password to the Wordpress container definition. | `number` | `256` | no |
-| <a name="input_ecs_memory"></a> [ecs\_memory](#input\_ecs\_memory) | The memory limit password to the Wordpress container definition. | `number` | `512` | no |
+| <a name="input_ecs_cpu"></a> [ecs\_cpu](#input\_ecs\_cpu) | The CPU limit to the Wordpress container definition. | `number` | `256` | no |
+| <a name="input_ecs_memory"></a> [ecs\_memory](#input\_ecs\_memory) | The memory limit to the Wordpress container definition. | `number` | `512` | no |
 | <a name="input_hosted_zone_id"></a> [hosted\_zone\_id](#input\_hosted\_zone\_id) | The Route53 HostedZone ID to use to create records in. | `string` | n/a | yes |
 | <a name="input_launch"></a> [launch](#input\_launch) | The number of tasks to launch of the Wordpress container. Used as a toggle to start/stop your Wordpress management session. | `number` | `"0"` | no |
 | <a name="input_main_vpc_id"></a> [main\_vpc\_id](#input\_main\_vpc\_id) | The VPC ID into which to launch resources. | `string` | n/a | yes |
@@ -241,10 +243,11 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of subnet IDs within the specified VPC where resources will be launched. | `list(any)` | n/a | yes |
 | <a name="input_waf_acl_rules"></a> [waf\_acl\_rules](#input\_waf\_acl\_rules) | List of WAF rules to apply. Can be customized to apply others created outside of module. | `list(any)` | <pre>[<br>  {<br>    "cloudwatch_metrics_enabled": true,<br>    "managed_rule_group_name": "AWSManagedRulesAmazonIpReputationList",<br>    "metric_name": "AWS-AWSManagedRulesAmazonIpReputationList",<br>    "name": "AWS-AWSManagedRulesAmazonIpReputationList",<br>    "priority": 0,<br>    "sampled_requests_enabled": true,<br>    "vendor_name": "AWS"<br>  },<br>  {<br>    "cloudwatch_metrics_enabled": true,<br>    "managed_rule_group_name": "AWSManagedRulesKnownBadInputsRuleSet",<br>    "metric_name": "AWS-AWSManagedRulesKnownBadInputsRuleSet",<br>    "name": "AWS-AWSManagedRulesKnownBadInputsRuleSet",<br>    "priority": 1,<br>    "sampled_requests_enabled": true,<br>    "vendor_name": "AWS"<br>  },<br>  {<br>    "cloudwatch_metrics_enabled": true,<br>    "managed_rule_group_name": "AWSManagedRulesBotControlRuleSet",<br>    "metric_name": "AWS-AWSManagedRulesBotControlRuleSet",<br>    "name": "AWS-AWSManagedRulesBotControlRuleSet",<br>    "priority": 2,<br>    "sampled_requests_enabled": true,<br>    "vendor_name": "AWS"<br>  }<br>]</pre> | no |
 | <a name="input_waf_enabled"></a> [waf\_enabled](#input\_waf\_enabled) | Flag to enable default WAF configuration in front of CloudFront. | `bool` | n/a | yes |
-| <a name="input_wordpress_admin_email"></a> [wordpress\_admin\_email](#input\_wordpress\_admin\_email) | The email address of the default wordpress admin user. | `string` | `"admin@example.com"` | no |
-| <a name="input_wordpress_admin_password"></a> [wordpress\_admin\_password](#input\_wordpress\_admin\_password) | The password of the default wordpress admin user. | `string` | `"techtospeech.com"` | no |
+| <a name="input_wordpress_admin_email"></a> [wordpress\_admin\_email](#input\_wordpress\_admin\_email) | The email address of the default wordpress admin user. | `string` | `"kirkdude@gmail.com"` | no |
+| <a name="input_wordpress_admin_password"></a> [wordpress\_admin\_password](#input\_wordpress\_admin\_password) | The password of the default wordpress admin user. | `string` | n/a | yes |
 | <a name="input_wordpress_admin_user"></a> [wordpress\_admin\_user](#input\_wordpress\_admin\_user) | The username of the default wordpress admin user. | `string` | `"supervisor"` | no |
 | <a name="input_wordpress_subdomain"></a> [wordpress\_subdomain](#input\_wordpress\_subdomain) | The subdomain used for the Wordpress container. | `string` | `"wordpress"` | no |
+
 ## Modules
 
 | Name | Source | Version |
@@ -253,14 +256,22 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | <a name="module_codebuild"></a> [codebuild](#module\_codebuild) | ./modules/codebuild | n/a |
 | <a name="module_lambda_slack"></a> [lambda\_slack](#module\_lambda\_slack) | ./modules/lambda_slack | n/a |
 | <a name="module_waf"></a> [waf](#module\_waf) | ./modules/waf | n/a |
+
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| <a name="output_cloudfront_bucket_arn"></a> [cloudfront\_bucket\_arn](#output\_cloudfront\_bucket\_arn) | n/a |
+| <a name="output_cloudfront_domain_name"></a> [cloudfront\_domain\_name](#output\_cloudfront\_domain\_name) | n/a |
+| <a name="output_cloudfront_hostedzone_id"></a> [cloudfront\_hostedzone\_id](#output\_cloudfront\_hostedzone\_id) | n/a |
 | <a name="output_cloudfront_ssl_arn"></a> [cloudfront\_ssl\_arn](#output\_cloudfront\_ssl\_arn) | The ARN of the ACM certificate used by CloudFront. |
 | <a name="output_codebuild_package_etag"></a> [codebuild\_package\_etag](#output\_codebuild\_package\_etag) | The etag of the codebuild package file. |
 | <a name="output_codebuild_project_name"></a> [codebuild\_project\_name](#output\_codebuild\_project\_name) | The name of the created Wordpress codebuild project. |
+| <a name="output_ses_domain_dkim"></a> [ses\_domain\_dkim](#output\_ses\_domain\_dkim) | n/a |
+| <a name="output_wordpress_dkim_record"></a> [wordpress\_dkim\_record](#output\_wordpress\_dkim\_record) | n/a |
 | <a name="output_wordpress_ecr_repository"></a> [wordpress\_ecr\_repository](#output\_wordpress\_ecr\_repository) | The name of the ECR repository where wordpress image is stored. |
+| <a name="output_wordpress_waf_arn"></a> [wordpress\_waf\_arn](#output\_wordpress\_waf\_arn) | n/a |
+
 ## Requirements
 
 | Name | Version |
@@ -268,6 +279,7 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.15.1 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.1.0 |
+
 ## Resources
 
 | Name | Type |
@@ -292,6 +304,7 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | [aws_rds_cluster.serverless_wordpress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/rds_cluster) | resource |
 | [aws_route53_record.apex](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.wordpress_acm_validation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_record.wordpress_dkim_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.www](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_security_group.aurora_serverless_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.efs_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
@@ -303,6 +316,8 @@ For any issues relating to this module, [raise an issue against this repo.](http
 | [aws_security_group_rule.wordpress_sg_egress_443](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.wordpress_sg_egress_80](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.wordpress_sg_ingress_80](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_ses_domain_dkim.ses_domain_dkim](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_domain_dkim) | resource |
+| [aws_ses_domain_identity.ses_domain_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_domain_identity) | resource |
 | [random_id.rds_snapshot](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [random_password.serverless_wordpress_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [aws_iam_policy_document.ecs_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |

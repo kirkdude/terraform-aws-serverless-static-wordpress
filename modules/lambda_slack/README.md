@@ -10,15 +10,19 @@ This module sets up a Lambda function to notify Slack of events happening in ECR
 | <a name="input_ecs_cluster_arn"></a> [ecs\_cluster\_arn](#input\_ecs\_cluster\_arn) | The ARN of the ECS cluster where events are being monitored. | `string` | n/a | yes |
 | <a name="input_site_name"></a> [site\_name](#input\_site\_name) | Unique internal name for the site. | `string` | n/a | yes |
 | <a name="input_slack_webhook"></a> [slack\_webhook](#input\_slack\_webhook) | The Slack webhook URL where ECS Cluster EventBridge notifications will be sent. | `string` | n/a | yes |
+
 ## Modules
 
 No modules.
+
 ## Outputs
 
 No outputs.
+
 ## Requirements
 
 No requirements.
+
 ## Resources
 
 | Name | Type |

@@ -62,14 +62,14 @@ variable "launch" {
 
 variable "ecs_cpu" {
   type        = number
-  description = "The CPU limit password to the Wordpress container definition."
+  description = "The CPU limit to the Wordpress container definition."
   default     = 256
 }
 
 variable "ecs_memory" {
   type        = number
   default     = 512
-  description = "The memory limit password to the Wordpress container definition."
+  description = "The memory limit to the Wordpress container definition."
 }
 
 variable "snapshot_identifier" {
@@ -116,21 +116,19 @@ variable "wordpress_subdomain" {
 variable "wordpress_admin_user" {
   type        = string
   description = "The username of the default wordpress admin user."
-  default     = "supervisor"
+  default     = "admin"
 }
 
 variable "wordpress_admin_password" {
   type        = string
   description = "The password of the default wordpress admin user."
-  #tfsec:ignore:GEN001
-  default   = "techtospeech.com"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "wordpress_admin_email" {
   type        = string
   description = "The email address of the default wordpress admin user."
-  default     = "admin@example.com"
+  default     = "kirkdude@gmail.com"
 }
 
 variable "waf_acl_rules" {

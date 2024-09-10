@@ -2,7 +2,7 @@ data "aws_region" "current" {}
 
 # TODO: Add optional logging for S3 bucket
 # TODO: Add optional versioning for S3 bucket
-#tfsec:ignore:AWS002 #tfsec:ignore:AWS077
+#tfsec:ignore:aws-s3-enable-bucket-logging #tfsec:ignore:aws-s3-enable-versioning
 resource "aws_s3_bucket" "code_source" {
   bucket        = var.codebuild_bucket
   acl           = "private"
@@ -68,15 +68,16 @@ resource "aws_security_group" "codebuild_security_group" {
   vpc_id      = var.main_vpc_id
 
   egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    #tfsec:ignore:AWS009
+    description = "ALL OPEN"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    #tfsec:ignore:aws-vpc-no-public-egress-sgr
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
-#tfsec:ignore:AWS089
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "wordpress_docker_build" {
   name              = "/aws/codebuild/${var.site_name}-serverless-wordpress-docker-build"
   retention_in_days = 7
@@ -142,7 +143,7 @@ resource "local_file" "php_ini" {
   content  = <<-EOT
       upload_max_filesize=64M
       post_max_size=64M
-      max_execution_time=0
+      max_execution_time=3000
       max_input_vars=2000
       memory_limit=${var.container_memory}M
     EOT
