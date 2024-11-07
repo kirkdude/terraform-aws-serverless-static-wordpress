@@ -55,7 +55,7 @@ variable "launch" {
   default     = "0"
   description = "The number of tasks to launch of the Wordpress container. Used as a toggle to start/stop your Wordpress management session."
   validation {
-    condition     = var.launch >= 0 && var.launch <= 1
+    condition     = var.launch >= 0 || var.launch <= 1
     error_message = "The number of tasks to launch should be either 1 or 0 only."
   }
 }

@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
-import boto3
 import json
 import logging
 import os
 
-from base64 import b64decode
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
-# # value of the CiphertextBlob key in output of $ aws kms encrypt --key-id alias/<KMS key name> --plaintext "<SLACK_HOOK_URL>"
+# value of the CiphertextBlob key in output of
+# $ aws kms encrypt --key-id alias/<KMS key name> --plaintext "<SLACK_HOOK_URL>"
+#
 # ENCRYPTED_HOOK_URL = "CiC9..."
-# HOOK_URL = "https://" + boto3.client('kms').decrypt(CiphertextBlob=b64decode(ENCRYPTED_HOOK_URL))['Plaintext']
-
 # HOOK_URL = "https://" + boto3.client('kms').decrypt(CiphertextBlob=b64decode(ENCRYPTED_HOOK_URL))['Plaintext']
 
 logger = logging.getLogger()

@@ -21,7 +21,7 @@ resource "aws_s3_bucket_public_access_block" "code_source" {
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
-  restrict_public_buckets = true
+  restrict_public_buckets = false
 }
 
 data "archive_file" "code_build_package" {
@@ -80,7 +80,7 @@ resource "aws_security_group" "codebuild_security_group" {
 #tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "wordpress_docker_build" {
   name              = "/aws/codebuild/${var.site_name}-serverless-wordpress-docker-build"
-  retention_in_days = 7
+  retention_in_days = 365
 }
 
 resource "aws_codebuild_project" "wordpress_docker_build" {
@@ -143,9 +143,9 @@ resource "local_file" "php_ini" {
   content  = <<-EOT
       upload_max_filesize=64M
       post_max_size=64M
-      max_execution_time=3000
+      max_execution_time=600
       max_input_vars=2000
-      memory_limit=${var.container_memory}M
+      memory_limit=${var.container_memory}
     EOT
   filename = "${path.module}/codebuild_files/php.ini"
 }
